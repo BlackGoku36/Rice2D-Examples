@@ -1,2 +1,4 @@
 # Rice2D-Examples
-Rice2D examples
+
+In Sources/Main.hx, comment and uncomment class constructor to try examples.
+
