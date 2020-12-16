@@ -178,7 +178,6 @@ OverlapTest.prototype = {
 	,render: function(canvas) {
 		var g = canvas.get_g2();
 		var col = g.get_color();
-		g.set_font(rice2d_App.font);
 		g.set_fontSize(30);
 		var h = g.get_font().height(g.get_fontSize());
 		g.set_color(-16777216);
@@ -29829,6 +29828,7 @@ rice2d_App.render = function(canvas,clearColor) {
 	bg2.set_color(clearColor);
 	bg2.fillRect(0,0,windowSize.width,windowSize.height);
 	bg2.set_color(col);
+	bg2.set_font(rice2d_App.font);
 	var _g = 0;
 	var _g1 = rice2d_App.onRender;
 	while(_g < _g1.length) _g1[_g++](rice2d_App.backbuffer);
