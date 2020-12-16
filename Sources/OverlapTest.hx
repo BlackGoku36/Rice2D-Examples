@@ -45,7 +45,7 @@ class OverlapTest {
         App.notifyOnRender(render);
     }
 
-    public function update() {
+    function update() {
          if(kb.started(One)){
             collisionType = RectRect;
         }else if(kb.started(Two)){
@@ -71,7 +71,7 @@ class OverlapTest {
         }
     }
 
-    public function render(canvas:Canvas) {
+    function render(canvas:Canvas) {
         var g = canvas.g2;
         var col = g.color;
         g.font = App.font;

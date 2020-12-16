@@ -13,5 +13,6 @@ class Main {
 		App.init("RICE2D", 1280, 810);
 		new OverlapTest();
 		// new InterpTest();
+		// new InputTest();
 	}
 }

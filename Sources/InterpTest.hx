@@ -28,7 +28,7 @@ class InterpTest {
         App.notifyOnRender(render);
     }
 
-    public function update() {
+    function update() {
         if(t <= d){
             c1 = Vector2.lerp(new Vector2(0, 60), new Vector2(ww - r, 60), Tween.easeLinear(t/d));
             c2 = Vector2.lerp(new Vector2(0, 160), new Vector2(ww - r, 160), Tween.easeSineIn(t/d));
@@ -41,7 +41,7 @@ class InterpTest {
         t+=1/60;
     }
 
-    public function render(canvas:Canvas) {
+    function render(canvas:Canvas) {
         var g = canvas.g2;
         var col = g.color;
         g.font = App.font;
