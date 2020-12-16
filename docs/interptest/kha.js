@@ -170,8 +170,9 @@ var Main = function() { };
 $hxClasses["Main"] = Main;
 Main.__name__ = true;
 Main.main = function() {
-	rice2d_App.init("RICE2D",1280,810);
-	new InterpTest();
+	rice2d_App.init("RICE2D",1280,810,-1,0,function() {
+		new InterpTest();
+	});
 };
 Math.__name__ = true;
 var Reflect = function() { };
@@ -29736,7 +29737,7 @@ kha_vr_TimeWarpParms.prototype = {
 var rice2d_App = function() { };
 $hxClasses["rice2d.App"] = rice2d_App;
 rice2d_App.__name__ = true;
-rice2d_App.init = function(title,width,height,clearColor,window_mode) {
+rice2d_App.init = function(title,width,height,clearColor,window_mode,done) {
 	if(window_mode == null) {
 		window_mode = 0;
 	}
@@ -29755,23 +29756,17 @@ rice2d_App.init = function(title,width,height,clearColor,window_mode) {
 	kha_System.start(new kha_SystemOptions(title,width,height,new kha_WindowOptions(null,-1,-1,800,600,-1,true,null,window_mode),null),function($window) {
 		kha_Assets.loadFont("OpenSans_Regular",function(fnt) {
 			rice2d_App.font = fnt;
-			rice2d_App.tasksdone += 1;
-		},null,{ fileName : "rice2d/App.hx", lineNumber : 38, className : "rice2d.App", methodName : "init"});
-		kha_Scheduler.addTimeTask(function() {
-			rice2d_App.update();
-		},0,0.0166666666666666664);
-		kha_System.notifyOnFrames(function(frames) {
-			rice2d_App.render(frames[0],clearColor);
-		});
+			done();
+			kha_Scheduler.addTimeTask(function() {
+				rice2d_App.update();
+			},0,0.0166666666666666664);
+			kha_System.notifyOnFrames(function(frames) {
+				rice2d_App.render(frames[0],clearColor);
+			});
+		},null,{ fileName : "rice2d/App.hx", lineNumber : 34, className : "rice2d.App", methodName : "init"});
 	});
 };
 rice2d_App.update = function() {
-	if(!rice2d_App.ready) {
-		if(rice2d_App.tasksdone == rice2d_App.totaltasks) {
-			rice2d_App.ready = true;
-		}
-		return;
-	}
 	rice2d_App.startTime = kha_Scheduler.realTime();
 	var _g = 0;
 	var _g1 = rice2d_App.onUpdate;
@@ -29784,9 +29779,6 @@ rice2d_App.update = function() {
 	rice2d_App.updateTime = kha_Scheduler.realTime() - rice2d_App.startTime;
 };
 rice2d_App.render = function(canvas,clearColor) {
-	if(!rice2d_App.ready) {
-		rice2d_App.loadingScreen(canvas);
-	}
 	rice2d_App.startTime = kha_Scheduler.realTime();
 	var currentTime = kha_Scheduler.realTime();
 	rice2d_App.deltaTime = currentTime - rice2d_App.previousTime;
@@ -29817,12 +29809,6 @@ rice2d_App.render = function(canvas,clearColor) {
 	rice2d_App.backbuffer.unload();
 	rice2d_App.previousTime = currentTime;
 	rice2d_App.renderTime = kha_Scheduler.realTime() - rice2d_App.startTime;
-};
-rice2d_App.loadingScreen = function(canvas) {
-	var g = canvas.get_g2();
-	g.fillRect(0,0,kha_System.windowWidth(),kha_System.windowHeight());
-	g.set_color(-65536);
-	g.fillRect(0,kha_System.windowHeight() - 6,kha_System.windowWidth() / rice2d_App.totaltasks * rice2d_App.tasksdone,6);
 };
 rice2d_App.notifyOnUpdate = function(update) {
 	rice2d_App.onUpdate.push(update);
@@ -30625,9 +30611,6 @@ rice2d_App.totalFrames = 0;
 rice2d_App.elapsedTime = 0.0;
 rice2d_App.previousTime = 0.0;
 rice2d_App.fps = 0;
-rice2d_App.totaltasks = 1;
-rice2d_App.tasksdone = 0;
-rice2d_App.ready = false;
 rice2d_Input.occupied = false;
 rice2d_Input.registered = false;
 rice2d_Tween.DEFAULT_OVERSHOOT = 1.70158;
