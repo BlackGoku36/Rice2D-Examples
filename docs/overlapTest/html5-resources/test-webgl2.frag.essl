@@ -1,0 +1,17 @@
+#version 300 es
+precision mediump float;
+precision highp int;
+
+uniform highp float time;
+
+out highp vec4 FragColor;
+in highp vec4 color;
+
+void main()
+{
+    highp float r = sin(time);
+    highp float g = cos(time);
+    highp float b = sin(time) * cos(time);
+    FragColor = vec4(r, g, b, 1.0);
+}
+
