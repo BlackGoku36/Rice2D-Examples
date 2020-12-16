@@ -29789,13 +29789,13 @@ rice2d_App.init = function(title,width,height,clearColor,window_mode) {
 	kha_System.start(new kha_SystemOptions(title,width,height,new kha_WindowOptions(null,-1,-1,800,600,-1,true,null,window_mode),null),function($window) {
 		kha_Assets.loadFont("OpenSans_Regular",function(fnt) {
 			rice2d_App.font = fnt;
+			kha_Scheduler.addTimeTask(function() {
+				rice2d_App.update();
+			},0,0.0166666666666666664);
+			kha_System.notifyOnFrames(function(frames) {
+				rice2d_App.render(frames[0],clearColor);
+			});
 		},null,{ fileName : "rice2d/App.hx", lineNumber : 33, className : "rice2d.App", methodName : "init"});
-		kha_Scheduler.addTimeTask(function() {
-			rice2d_App.update();
-		},0,0.0166666666666666664);
-		kha_System.notifyOnFrames(function(frames) {
-			rice2d_App.render(frames[0],clearColor);
-		});
 	});
 };
 rice2d_App.update = function() {
@@ -29811,9 +29811,6 @@ rice2d_App.update = function() {
 	rice2d_App.updateTime = kha_Scheduler.realTime() - rice2d_App.startTime;
 };
 rice2d_App.render = function(canvas,clearColor) {
-	if(rice2d_App.font == null) {
-		return;
-	}
 	rice2d_App.startTime = kha_Scheduler.realTime();
 	var currentTime = kha_Scheduler.realTime();
 	rice2d_App.deltaTime = currentTime - rice2d_App.previousTime;
