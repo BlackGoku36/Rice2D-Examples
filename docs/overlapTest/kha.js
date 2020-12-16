@@ -29811,6 +29811,9 @@ rice2d_App.update = function() {
 	rice2d_App.updateTime = kha_Scheduler.realTime() - rice2d_App.startTime;
 };
 rice2d_App.render = function(canvas,clearColor) {
+	if(rice2d_App.font == null) {
+		return;
+	}
 	rice2d_App.startTime = kha_Scheduler.realTime();
 	var currentTime = kha_Scheduler.realTime();
 	rice2d_App.deltaTime = currentTime - rice2d_App.previousTime;
