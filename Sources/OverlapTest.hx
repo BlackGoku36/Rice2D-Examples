@@ -42,7 +42,7 @@ class OverlapTest {
         rect2Pos.y = Window.getCenter().y-(rect2Height/2);
         
         App.notifyOnUpdate(update);
-        App.notifyOnRender(render);
+        App.notifyOnRenderG2(render);
     }
 
     function update() {

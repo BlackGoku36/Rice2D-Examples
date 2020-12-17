@@ -25,7 +25,7 @@ class InterpTest {
 
     public function new() {
         App.notifyOnUpdate(update);
-        App.notifyOnRender(render);
+        App.notifyOnRenderG2(render);
     }
 
     function update() {

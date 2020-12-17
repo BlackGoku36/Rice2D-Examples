@@ -23,7 +23,7 @@ class ShaderTest {
         timeCL = shader.getPipeline().getConstantLocation("time");
 
         App.notifyOnUpdate(update);
-        App.notifyOnRender(render);
+        App.notifyOnRenderG2(render);
     }
 
     function update() {
